@@ -5,7 +5,7 @@ name: Build
 
 on:
   push:
-    branches: [ "ci/setup" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: [22.x, 23.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
