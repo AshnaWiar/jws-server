@@ -10,9 +10,10 @@
   jws-server
 </h1>
 
-![npm version](https://img.shields.io/npm/v/YOUR_PACKAGE_NAME?style=flat-square)
-![Node.js LTS](https://img.shields.io/node/v/YOUR_PACKAGE_NAME?style=flat-square)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![badge-build]
+![badge-npm]
+![badge-node]
+![badge-license]
 
 jws-server, short for **JSON WebSocket server** This project is a lightweight Node.js CLI tool for mocking WebSocket backends using a
 simple JSON configuration file. Inspired by [json-server][json-server], it allows developers to simulate
@@ -99,4 +100,8 @@ Once a version reaches End-of-Life (EOL), support will be dropped in the next ma
 ---
 Good luck, And may your coffee be strong and your stacktrace short
 
-[json-server]: https://github.com/typicode/json-server
+[json-server]:      https://github.com/typicode/json-server
+[badge-build]:      https://github.com/AshnaWiar/jws-server/actions/workflows/build.yml/badge.svg?branch=main
+[badge-npm]:        https://img.shields.io/npm/v/YOUR_PACKAGE_NAME?style=flat-square
+[badge-node]:       https://img.shields.io/node/v/YOUR_PACKAGE_NAME?style=flat-square
+[badge-license]:    https://img.shields.io/badge/License-MIT-yellow.svg
