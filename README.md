@@ -15,7 +15,8 @@
 ![badge-node]
 ![badge-license]
 
-jws-server, short for **JSON WebSocket server** This project is a lightweight Node.js CLI tool for mocking WebSocket backends using a
+jws-server, short for **JSON WebSocket server** This project is a lightweight Node.js CLI tool for mocking WebSocket
+backends using a
 simple JSON configuration file. Inspired by [json-server][json-server], it allows developers to simulate
 real-time WebSocket interactions without needing to run a full backend server <br>
 
@@ -72,7 +73,6 @@ Your WebSocket client can now connect to `ws://localhost:8080` and interact with
 | `-p, --port`    | Port to run the WebSocket server on                 | `3000`      |
 | `-H, --host`    | hostname or IP address to bind  WebSocket server to | `localhost` |
 
-
 ## Versioning & Release Policy
 
 Jws-server uses [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`) to indicate the level of changes
@@ -93,7 +93,7 @@ Once a version reaches End-of-Life (EOL), support will be dropped in the next ma
 
 **Node.js Compatibility Matrix**
 
-| Version | Supported Node.js version | 
+| Version | Supported Node.js version |
 |---------|---------------------------|
 | 1.x.x   | 22.x, 23.x, 24.x          |
 
@@ -101,7 +101,11 @@ Once a version reaches End-of-Life (EOL), support will be dropped in the next ma
 Good luck, And may your coffee be strong and your stacktrace short
 
 [json-server]:      https://github.com/typicode/json-server
+
 [badge-build]:      https://github.com/AshnaWiar/jws-server/actions/workflows/build.yml/badge.svg?branch=main
+
 [badge-npm]:        https://img.shields.io/npm/v/YOUR_PACKAGE_NAME?style=flat-square
+
 [badge-node]:       https://img.shields.io/node/v/YOUR_PACKAGE_NAME?style=flat-square
+
 [badge-license]:    https://img.shields.io/badge/License-MIT-yellow.svg
