@@ -16,10 +16,12 @@
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^24.3.1",
+    "@types/ws": "^8.18.1",
     "typescript": "^5.9.2"
   },
   "private": true,
   "dependencies": {
-    "commander": "^14.0.0"
+    "commander": "^14.0.0",
+    "ws": "^8.18.3"
   }
 }
