@@ -20,6 +20,7 @@ export const createCLIProgram = () => {
       + `  ${program.name()} -c jws-config.json [options]               Override config options via CLI\n`
       + '\n'
       + 'For more help on how to use jws-server, head to https://github.com/ashnawiar/jws-server')
+  .exitOverride();
 
 }
 
