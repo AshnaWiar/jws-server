@@ -28,19 +28,21 @@ export class WebsocketServer extends EventEmitter {
 
   async stop(): Promise<void> {
 
-    if (!this.server) {
-      return
-    }
-
-    console.log('Stopping active connections...')
-    for (const client of this.server.clients as Set<WebSocket>) {
-      client.close(1001, 'Shutting down')
-    }
-
-    const closeAsync = promisify(this.server.close).bind(this.server);
-    await closeAsync();
-
     this.emit('stop', this.server)
+
+    try {
+      const closeAsync = promisify(this.server!.close).bind(this.server);
+      await closeAsync();
+    } catch (err) {
+
+      if (err instanceof Error && err.message.includes('The server is not running')) {
+        console.warn('Attempted to close an already closed server...')
+        return
+      }
+
+      this.emit('error', err)
+    }
+
   }
 
   private createWebsocketServer() {

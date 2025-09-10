@@ -46,8 +46,19 @@ safeExecute(() => {
         });
       });
     })
+    .on('stop', async (server: WebSocketServer) => {
+      if (server.clients.size === 0) {
+        return;
+      }
+
+      for (const client of server.clients) {
+        client.close(1001, 'Server shutting down')
+      }
+
+      console.log(`(${server.clients.size}) active connections closed`)
+    })
     .on('error', (err: Error) => {
-      console.error(err.message);
+      console.error('unexpected websocket error', err);
     })
 
   server.start()
