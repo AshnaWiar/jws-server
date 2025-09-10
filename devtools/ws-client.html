@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebSocket Dev Client</title>
+</head>
+<body>
+<h1>WebSocket Dev Client</h1>
+<label for="messageInput"></label>
+<input id="messageInput" placeholder="Type a message" type="text"/>
+<button onclick="sendMessage()">Send</button>
+<pre id="log"></pre>
+
+<script>
+  const log = (msg) => {
+    document.getElementById('log').textContent += msg + '\n';
+  };
+
+  const socket = new WebSocket('ws://localhost:3000'); // Change to your server URL
+
+  socket.onopen = () => {
+    log('✅ Connected to server');
+    socket.send(JSON.stringify({type: 'ping'}));
+  };
+
+  socket.onmessage = (event) => {
+    log('📨 Message from server: ' + event.data);
+  };
+
+  socket.onclose = () => {
+    log('❌ Connection closed');
+  };
+
+  socket.onerror = (err) => {
+    log('⚠️ WebSocket error: ' + err.message);
+  };
+
+  window.sendMessage = () => {
+    const input = document.getElementById('messageInput');
+    const msg = input.value;
+    socket.send(msg);
+    log('📤 Sent: ' + msg);
+    input.value = '';
+  };
+</script>
+</body>
+</html>
