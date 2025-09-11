@@ -1,5 +1,5 @@
 import {ContentType} from "../../json-spec/payload-spec.js";
-import {truncateString} from "../../utils/truncate.js";
+import {truncate} from "../../utils.js";
 
 export class WebsocketRequest {
 
@@ -19,7 +19,7 @@ export class WebsocketRequest {
   toString() {
     const encoding = this.contentType === 'text/plain' ? 'utf8' : 'hex';
 
-    return `WebsocketRequest[id=${this.id}, size=${this.buffer.length}, hash=${this.hash}, encoding=${encoding}, payload=${truncateString(this.payloadAsString)}]`
+    return `WebsocketRequest[id=${this.id}, size=${this.buffer.length}, hash=${this.hash}, encoding=${encoding}, payload=${truncate(this.payloadAsString)}]`
   }
 
   [Symbol.toPrimitive](hint: 'string' | 'number' | 'default') {

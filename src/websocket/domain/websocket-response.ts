@@ -1,5 +1,5 @@
 import {PayloadSpec} from "../../json-spec/payload-spec.js";
-import {truncateString} from "../../utils/truncate.js";
+import {truncate} from "../../utils.js";
 
 export class WebsocketResponse {
 
@@ -38,7 +38,7 @@ export class WebsocketResponse {
 
   toString(): string {
     const buffer = Buffer.from(this.payloadSpec.payload, this.payloadSpec.encoding)
-    return `WebsocketResponse[size=${buffer.length}, encoding=${this.payloadSpec.encoding} payload=${truncateString(this.payloadSpec.payload)}]`;
+    return `WebsocketResponse[size=${buffer.length}, encoding=${this.payloadSpec.encoding} payload=${truncate(this.payloadSpec.payload)}]`;
   }
 
 }

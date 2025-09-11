@@ -21,7 +21,6 @@ export const createCLIProgram = () => {
       + '\n'
       + 'For more help on how to use jws-server, head to https://github.com/ashnawiar/jws-server')
   .exitOverride();
-
 }
 
 export const parseProgramOptions = (cmd: Command) => {

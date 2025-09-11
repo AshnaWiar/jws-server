@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
-import {createCLIProgram, parseProgramOptions} from "./cli/program.js";
+import {createCLIProgram, parseProgramOptions} from "./commander-program.js";
 import {safeExecute} from "./exceptions/safe-execute.js";
 import {WebsocketEvent} from "./websocket/types/index.js";
 import {WebsocketConnection} from "./websocket/websocket-connection.js";
 import {AddressInfo} from "node:net";
 import {WebsocketServer} from "./websocket/websocket-server.js";
 import {WebSocketServer} from "ws";
-import fileLoader from "./utils/file-loader.js";
 import {WebsocketEventListener} from "./websocket/listeners/websocket-event-listener.js";
 import {WebsocketMessageListener} from "./websocket/listeners/websocket-message-listener.js";
 import {WebsocketRequestParser} from "./websocket/websocket-request-parser.js";
 import {WebsocketEventDispatcher} from "./websocket/websocket-event-dispatcher.js";
+import {loadFileSync} from "./utils.js";
 
 safeExecute(() => {
 
-  const program = createCLIProgram();
+  const program = createCLIProgram()
   const config = parseProgramOptions(program);
 
   const serverConfig = {
@@ -23,7 +23,7 @@ safeExecute(() => {
     port: config.port,
   }
 
-  const specFile = fileLoader.loadSync(config.pathToSpecFile);
+  const specFile = loadFileSync(config.pathToSpecFile);
 
   console.log(`${program.name()} ${program.version()} initialized`)
   console.log(`Parsed CLI args: '${process.argv.slice(2).join(' ')}'\n`);
