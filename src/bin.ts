@@ -7,11 +7,9 @@ import {WebsocketConnection} from "./websocket/websocket-connection.js";
 import {AddressInfo} from "node:net";
 import {WebsocketServer} from "./websocket/websocket-server.js";
 import {WebSocketServer} from "ws";
-import {WebsocketEventListener} from "./websocket/listeners/websocket-event-listener.js";
-import {WebsocketMessageListener} from "./websocket/listeners/websocket-message-listener.js";
-import {WebsocketRequestParser} from "./websocket/websocket-request-parser.js";
-import {WebsocketEventDispatcher} from "./websocket/websocket-event-dispatcher.js";
-import {loadFileSync} from "./utils.js";
+import {tryReadFileSync} from "./utils.js";
+import {WebsocketSpec} from "./json-spec/websocket-spec.js";
+import {createWebsocketServer} from "./bootstrap.js";
 
 safeExecute(() => {
 
@@ -23,20 +21,14 @@ safeExecute(() => {
     port: config.port,
   }
 
-  const specFile = loadFileSync(config.pathToSpecFile);
+  const specFile = tryReadFileSync<WebsocketSpec>(config.pathToSpecFile);
 
   console.log(`${program.name()} ${program.version()} initialized`)
   console.log(`Parsed CLI args: '${process.argv.slice(2).join(' ')}'\n`);
 
   // ===== [ Application ] =====
-  const listeners: WebsocketEventListener[] = [
-    new WebsocketMessageListener()
-  ]
 
-  const requestParser = new WebsocketRequestParser();
-  const eventDispatcher = new WebsocketEventDispatcher(requestParser);
-
-  const server = new WebsocketServer(serverConfig)
+  const server = createWebsocketServer(serverConfig, specFile)
     .on('listening', (server: WebSocketServer) => {
       const {address, port} = server.address() as AddressInfo
 
@@ -47,12 +39,6 @@ safeExecute(() => {
     .on('connection', (conn: WebsocketConnection) => {
       console.info(`+ connection ${conn.id}`);
 
-      for (const listener of listeners) {
-        conn.addSocketListener(listener.eventType,
-          eventDispatcher.dispatch.bind(eventDispatcher, conn, listener)
-        );
-      }
-
       (['close', 'terminate'] as WebsocketEvent[]).forEach(event => {
         conn.addSocketListener(event, (code, reason) => {
           console.info(`- connection ${conn.id}`, {
@@ -61,17 +47,6 @@ safeExecute(() => {
           });
         });
       });
-    })
-    .on('stop', async (server: WebSocketServer) => {
-      if (server.clients.size === 0) {
-        return;
-      }
-
-      for (const client of server.clients) {
-        client.close(1001, 'Server shutting down')
-      }
-
-      console.log(`(${server.clients.size}) active connections closed`)
     })
     .on('error', (err: Error) => {
       console.error('unexpected websocket error', err);

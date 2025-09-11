@@ -10,6 +10,11 @@ export const loadFileSync = (filePath: string): string | undefined  => {
   }
 }
 
+export const tryReadFileSync = <T>(filePath: string): T => {
+  const file = loadFileSync(filePath)!;
+  return JSON.parse(file) as T;
+};
+
 export const truncate = (str: string, maxSize: number = 256)  =>{
   if (str.length <= maxSize) return str;
   return  str.slice(0, maxSize) + '...'
