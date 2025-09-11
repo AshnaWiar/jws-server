@@ -8,6 +8,10 @@ import {AddressInfo} from "node:net";
 import {WebsocketServer} from "./websocket/websocket-server.js";
 import {WebSocketServer} from "ws";
 import fileLoader from "./utils/file-loader.js";
+import {WebsocketEventListener} from "./websocket/listeners/websocket-event-listener.js";
+import {WebsocketMessageListener} from "./websocket/listeners/websocket-message-listener.js";
+import {WebsocketRequestParser} from "./websocket/websocket-request-parser.js";
+import {WebsocketEventDispatcher} from "./websocket/websocket-event-dispatcher.js";
 
 safeExecute(() => {
 
@@ -25,6 +29,12 @@ safeExecute(() => {
   console.log(`Parsed CLI args: '${process.argv.slice(2).join(' ')}'\n`);
 
   // ===== [ Application ] =====
+  const listeners: WebsocketEventListener[] = [
+    new WebsocketMessageListener()
+  ]
+
+  const requestParser = new WebsocketRequestParser();
+  const eventDispatcher = new WebsocketEventDispatcher(requestParser);
 
   const server = new WebsocketServer(serverConfig)
     .on('listening', (server: WebSocketServer) => {
@@ -36,6 +46,12 @@ safeExecute(() => {
     })
     .on('connection', (conn: WebsocketConnection) => {
       console.info(`+ connection ${conn.id}`);
+
+      for (const listener of listeners) {
+        conn.addSocketListener(listener.eventType,
+          eventDispatcher.dispatch.bind(eventDispatcher, conn, listener)
+        );
+      }
 
       (['close', 'terminate'] as WebsocketEvent[]).forEach(event => {
         conn.addSocketListener(event, (code, reason) => {

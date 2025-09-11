@@ -34,8 +34,7 @@ socket.on('pong', (data) => {
 })
 
 socket.on('message', (data, isBinary) => {
-  console.log('message', data, isBinary);
-  console.log('📨 Message from server:', data.toString());
+  console.log('📨 Message from server:', data.toString(isBinary ? 'hex' : 'utf8'));
 });
 
 socket.on('close', (code, reason) => {
