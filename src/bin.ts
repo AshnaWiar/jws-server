@@ -10,6 +10,8 @@ import {WebSocketServer} from "ws";
 import {tryReadJSONFileSync} from "./utils.js";
 import {WebsocketSpec} from "./json-spec/websocket-spec.js";
 import {createWebsocketServer} from "./bootstrap.js";
+import logger from "./logger.js";
+import chalk from "chalk";
 
 safeExecute(() => {
 
@@ -23,8 +25,9 @@ safeExecute(() => {
 
   const specFile = tryReadJSONFileSync<WebsocketSpec>(config.pathToSpecFile);
 
-  console.log(`${program.name()} ${program.version()} initialized`)
-  console.log(`Parsed CLI args: '${process.argv.slice(2).join(' ')}'\n`);
+  logger.log(`${program.name()} ${program.version()} initialized`)
+  logger.log(`Parsed CLI args: '${process.argv.slice(2).join(' ')}'\n`);
+  logger.debug(`Debug mode is ${chalk.green('enabled')}`);
 
   // ===== [ Application ] =====
 
@@ -33,23 +36,26 @@ safeExecute(() => {
       const {address, port} = server.address() as AddressInfo
 
       const host = ['127.0.0.1', '::1'].includes(address) ? 'localhost' : address
-      console.log(`WebSocket server listening on ws://${host}:${port}`)
-      console.log(`\nPress 'Ctrl+C' to exit at any time\n`)
+      logger.log(`WebSocket server listening on ${chalk.bold(`ws://${host}:${port}`)}`)
+      logger.newline().log(`Press ${chalk.yellow('Ctrl+C')} to exit at any time\n`)
     })
     .on('connection', (conn: WebsocketConnection) => {
-      console.info(`+ connection ${conn.id}`);
+      logger.log(`${chalk.green('+')} connection ${conn.id}`);
 
       (['close', 'terminate'] as WebsocketEvent[]).forEach(event => {
         conn.addSocketListener(event, (code, reason) => {
-          console.info(`- connection ${conn.id}`, {
+          logger.log(`${chalk.yellow('-')} connection ${conn.id}`, {
             code,
             reason: (reason as Buffer).toString(),
           });
         });
       });
     })
+    .on('stop', () => {
+      logger.log('Stopping server...');
+    })
     .on('error', (err: Error) => {
-      console.error('unexpected websocket error', err);
+      logger.error('unexpected websocket error', err);
     })
 
   server.start()
@@ -59,11 +65,11 @@ safeExecute(() => {
 });
 
 async function shutdown(server: WebsocketServer) {
-  console.log('\nReceived interrupt signal. Initiating shutdown sequence...');
+  logger.newline(chalk.bold('Received interrupt signal. Initiating shutdown sequence...'));
 
   try {
     await server.stop()
   } catch (err) {
-    console.error('Error while closing server:', err);
+    logger.error('Error while closing server:', err);
   }
 }

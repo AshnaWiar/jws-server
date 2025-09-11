@@ -28,7 +28,7 @@ export class WebsocketMessageListener extends WebsocketEventListener {
       return undefined;
     }
 
-    return new WebsocketResponse(spec.response);
+    return new WebsocketResponse(this.scenarioSpec[0].response);
   }
 
   private bufferComparator(expected: PayloadSpec, actual: WebsocketRequest) {

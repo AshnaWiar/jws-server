@@ -1,5 +1,7 @@
 import {ContentType} from "../../json-spec/payload-spec.js";
 import {truncate} from "../../utils.js";
+import chalk from "chalk";
+import {randomBytes} from "node:crypto";
 
 export class WebsocketRequest {
 
@@ -18,7 +20,7 @@ export class WebsocketRequest {
   toString() {
     const encoding = this.contentType === 'text/plain' ? 'utf8' : 'hex';
 
-    return `WebsocketRequest[id=${this.id}, size=${this.buffer.length}, hash=${this.hash}, encoding=${encoding}, payload=${truncate(this.payloadAsString)}]`
+    return `WebsocketRequest[id=${chalk.dim.yellow(this.id)}, size=${this.buffer.length}, hash=${this.hash}, encoding=${encoding}, payload=${truncate(this.payloadAsString)}]`
   }
 
   [Symbol.toPrimitive](hint: 'string' | 'number' | 'default') {
@@ -30,7 +32,7 @@ export class WebsocketRequest {
   }
 
   private generateId(): string {
-    return this.generateHash(Buffer.from(Date.now().toString()));
+    return this.generateHash(Buffer.from(Date.now().toString() + randomBytes(5)));
   }
 
   private generateHash(buffer: Buffer): string {

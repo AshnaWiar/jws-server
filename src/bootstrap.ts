@@ -7,6 +7,7 @@ import {WebsocketRequestParser} from "./websocket/websocket-request-parser.js";
 import {WebsocketEventDispatcher} from "./websocket/websocket-event-dispatcher.js";
 import {WebsocketConnection} from "./websocket/websocket-connection.js";
 import {WebSocketServer} from "ws";
+import logger from "./logger.js";
 
 export const createWebsocketServer = (config: ServerConfig, spec: WebsocketSpec) => {
 
@@ -37,6 +38,6 @@ export const createWebsocketServer = (config: ServerConfig, spec: WebsocketSpec)
         client.close(1001, 'Server shutting down')
       }
 
-      console.log(`(${server.clients.size}) active connections closed`)
+      logger.log(`(${server.clients.size}) active connections closed`)
     })
 }

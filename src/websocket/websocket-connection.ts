@@ -1,5 +1,6 @@
 import {WebSocket} from 'ws'
 import {WebsocketEvent} from "./types/index.js";
+import logger from "../logger.js";
 
 export class WebsocketConnection {
 
@@ -15,7 +16,7 @@ export class WebsocketConnection {
 
   sendMessage(data: Buffer | string) {
     if (this.socket.readyState !== WebSocket.OPEN) {
-      console.warn('Attempting to send a closed websocket connection');
+      logger.warn('Attempting to send a closed websocket connection');
       return;
     }
 

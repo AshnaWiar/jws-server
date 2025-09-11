@@ -1,4 +1,6 @@
 import {Command} from "commander";
+import logger from "./logger.js";
+import chalk from "chalk";
 
 export const createCLIProgram = () => {
   const program = new Command();
@@ -10,6 +12,8 @@ export const createCLIProgram = () => {
     .option('-p, --port <port>', 'Websocket server port', (v) => parseInt(v), 3000)
     .version('1.0.0', '-v, --version', 'print version')
     .helpOption('-h, --help', 'print usage')
+    .option('-V, --verbose', 'display verbose logging')
+    .option('--no-color', 'disable colored log output')
     .argument('<spec-file>', 'Path to spec file (required unless -c, --config is provided)')
     .enablePositionalOptions(false)
     .addHelpText('after',
@@ -36,6 +40,14 @@ export const parseProgramOptions = (cmd: Command) => {
     console.log(program.version()!);
     process.exit(0);
   }
+  if (options.color === false) {
+    chalk.level = 0;
+  }
+
+  if (options.verbose) {
+    logger.setEnabledLevels(['info', 'debug']);
+  }
+
 
   return {
     host: options.host,

@@ -4,6 +4,8 @@ import {WebsocketEventListener} from "./listeners/websocket-event-listener.js";
 import {UnsupportedEventTypeException} from "../exceptions/unsupported-event-type.js";
 import {WebsocketRequest} from "./domain/websocket-request.js";
 import {WebsocketResponse} from "./domain/websocket-response.js";
+import logger from "../logger.js";
+import chalk from "chalk";
 
 export class WebsocketEventDispatcher {
 
@@ -19,19 +21,19 @@ export class WebsocketEventDispatcher {
 
     try {
       request = await this.requestParser.parseRequest(listener.eventType, ...args);
-      console.debug(`recv | ${conn.id} | ${listener.eventType} | ${request}`);
+      logger.debug(chalk.dim(`${chalk.yellow('recv')} | ${conn.id} | ${listener.eventType} | ${request}`));
 
       response = await listener.handle(request);
       if (response == null) return;
 
       await conn.sendMessage(response.getPayload());
-      console.debug(`send | ${conn.id} | ${listener.eventType} | ${response}`);
+      logger.debug(`${chalk.green('send')} | ${conn.id} |  ${listener.eventType} | ${chalk.yellow(request.id)} | ${response}`);
 
     } catch (err) {
       if (err instanceof UnsupportedEventTypeException) {
-        console.error(`Received request for unsupported WebSocket event: ${err.evenType}`);
+        logger.error(`Received request for unsupported WebSocket event: ${err.evenType}`);
       } else {
-        console.error('Failed to process WebSocket message', {
+        logger.error('Failed to process WebSocket message', {
           connection: conn.id,
           eventType: listener.eventType,
           request: request ?? 'N/A',

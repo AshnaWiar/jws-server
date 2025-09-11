@@ -1,4 +1,5 @@
 import {CommanderError} from "commander";
+import logger from "../logger.js";
 
 export const safeExecute = (fn: Function) => {
   try {
@@ -11,7 +12,7 @@ export const safeExecute = (fn: Function) => {
       return
     }
 
-    console.error(e)
+    logger.error('uncaught exception', e)
   }
 }
 

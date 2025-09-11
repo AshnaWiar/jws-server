@@ -5,6 +5,7 @@ import {promisify} from 'node:util'
 import EventEmitter from "node:events";
 import {ServerConfig} from "./server-config.js";
 import {WebsocketConnection} from "./websocket-connection.js";
+import logger from "../logger.js";
 
 
 export class WebsocketServer extends EventEmitter {
@@ -36,7 +37,7 @@ export class WebsocketServer extends EventEmitter {
     } catch (err) {
 
       if (err instanceof Error && err.message.includes('The server is not running')) {
-        console.warn('Attempted to close an already closed server...')
+        logger.warn('Attempted to close an already closed server...')
         return
       }
 
@@ -72,7 +73,7 @@ export class WebsocketServer extends EventEmitter {
   }
 
   private onError(error: Error) {
-    console.error('Websocket server Error:', error)
+    logger.error('Websocket server Error:', error)
     this.emit('error', error)
   }
 }
