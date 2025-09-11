@@ -2,7 +2,7 @@ import {readFileSync} from 'fs'
 import ErrnoException = NodeJS.ErrnoException;
 import {FailedToLoadFile} from "./exceptions/failed-to-load-file.js";
 
-export const loadFileSync = (filePath: string): string | undefined  => {
+export const tryReadFileSync = (filePath: string): string | undefined  => {
   try {
     return readFileSync(filePath, 'utf8')
   }catch (e) {
@@ -10,8 +10,8 @@ export const loadFileSync = (filePath: string): string | undefined  => {
   }
 }
 
-export const tryReadFileSync = <T>(filePath: string): T => {
-  const file = loadFileSync(filePath)!;
+export const tryReadJSONFileSync = <T>(filePath: string): T => {
+  const file = tryReadFileSync(filePath)!;
   return JSON.parse(file) as T;
 };
 

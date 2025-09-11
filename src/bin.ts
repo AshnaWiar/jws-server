@@ -7,7 +7,7 @@ import {WebsocketConnection} from "./websocket/websocket-connection.js";
 import {AddressInfo} from "node:net";
 import {WebsocketServer} from "./websocket/websocket-server.js";
 import {WebSocketServer} from "ws";
-import {tryReadFileSync} from "./utils.js";
+import {tryReadJSONFileSync} from "./utils.js";
 import {WebsocketSpec} from "./json-spec/websocket-spec.js";
 import {createWebsocketServer} from "./bootstrap.js";
 
@@ -21,7 +21,7 @@ safeExecute(() => {
     port: config.port,
   }
 
-  const specFile = tryReadFileSync<WebsocketSpec>(config.pathToSpecFile);
+  const specFile = tryReadJSONFileSync<WebsocketSpec>(config.pathToSpecFile);
 
   console.log(`${program.name()} ${program.version()} initialized`)
   console.log(`Parsed CLI args: '${process.argv.slice(2).join(' ')}'\n`);

@@ -5,7 +5,6 @@ export class WebsocketRequest {
 
   readonly id: string;
   readonly hash: string;
-  private cachedPayload: Buffer | string | undefined;
 
   constructor(
     readonly buffer: Buffer,
@@ -28,14 +27,6 @@ export class WebsocketRequest {
     }
 
     return this.toString();
-  }
-
-  getPayload() {
-    if (this.cachedPayload === undefined) {
-      this.cachedPayload = this.contentType === 'text/plain' ? this.payloadAsString : this.buffer
-    }
-
-    return this.cachedPayload;
   }
 
   private generateId(): string {

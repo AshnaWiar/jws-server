@@ -39,5 +39,4 @@ export class WebsocketMessageListener extends WebsocketEventListener {
     return expected.payload === actual.payloadAsString
   }
 
-
 }

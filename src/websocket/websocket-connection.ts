@@ -1,7 +1,6 @@
 import {WebSocket} from 'ws'
 import {WebsocketEvent} from "./types/index.js";
 
-
 export class WebsocketConnection {
 
   constructor(
