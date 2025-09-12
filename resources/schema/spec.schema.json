@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jws-server/schemas/jws-spec.schema.json",
+  "title": "WebSocket Message Envelope",
+  "type": "object",
+  "required": ["messages"],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "messages": {
+      "type": "array",
+      "description": "List of specifications mock",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["content", "response"],
+        "properties": {
+          "content": {
+            "$ref": "#/definitions/payload"
+          },
+          "response": {
+            "$ref": "#/definitions/payload"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "payload": {
+      "type": "object",
+      "required": ["payload", "encoding","contentType"],
+      "properties": {
+        "payload": {
+          "type": "string",
+          "description": "The message content, encoded or plain."
+        },
+        "encoding": {
+          "type": "string",
+          "enum": ["utf8", "base64", "hex", "ascii", "base64url"],
+          "description": "Encoding used for the payload, if any."
+        },
+        "contentType": {
+          "type": "string",
+          "enum": ["application/octet-stream", "text/plain"],
+          "description": "MIME type of the payload, e.g. application/json."
+        }
+      }
+    }
+  }
+}

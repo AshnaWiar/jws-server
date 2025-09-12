@@ -6,7 +6,8 @@
   "type": "module",
   "files": [
     "dist/**/*.js",
-    "dist/**/*.d.ts"
+    "dist/**/*.d.ts",
+    "resources"
   ],
   "bin": {
     "jws-server": "dist/bin.js"
