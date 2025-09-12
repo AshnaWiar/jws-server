@@ -2,8 +2,12 @@
   "name": "jws-server",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/bin.js",
   "type": "module",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
   "bin": {
     "jws-server": "dist/bin.js"
   },
@@ -11,7 +15,7 @@
     "node": ">=22.0.0 <25.0.0"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && node ./devtools/scripts/remove-empty-files.js"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
@@ -19,7 +23,6 @@
     "@types/ws": "^8.18.1",
     "typescript": "^5.9.2"
   },
-  "private": true,
   "dependencies": {
     "chalk": "^5.6.2",
     "commander": "^14.0.0",
