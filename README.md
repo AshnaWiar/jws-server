@@ -21,10 +21,10 @@ real-time WebSocket interactions without needing to run a full backend server <b
 
 <!-- TOC -->
   * [Installation](#installation)
-  * [Getting Started](#getting-started)
-    * [Configuration Options](#configuration-options)
-  * [Versioning & Release Policy](#versioning--release-policy)
-    * [Node.js LTS Alignment](#nodejs-lts-alignment)
+  * [Getting started](#getting-started)
+    * [Configuration options](#configuration-options)
+  * [Versioning & Release policy](#versioning--release-policy)
+    * [Node.js LTS alignment](#nodejs-lts-alignment)
 <!-- TOC -->
 
 ## Installation
@@ -104,8 +104,8 @@ May your builds be fast, your bugs be few, and your console always readable
 
 [json-server]:      https://github.com/typicode/json-server
 
-[badge-npm]:        https://img.shields.io/npm/v/YOUR_PACKAGE_NAME?style=flat-square
+[badge-npm]:        https://img.shields.io/npm/v/jws-server?style=flat-square
 
-[badge-node]:       https://img.shields.io/node/v/YOUR_PACKAGE_NAME?style=flat-square
+[badge-node]:       https://img.shields.io/node/v/jws-server?style=flat-square
 
 [badge-license]:    https://img.shields.io/badge/License-MIT-yellow.svg
