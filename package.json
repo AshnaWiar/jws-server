@@ -1,7 +1,7 @@
 {
   "name": "jws-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mock websocket servers using json",
   "main": "dist/bin.js",
   "type": "module",
   "files": [
