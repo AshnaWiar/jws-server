@@ -2,6 +2,10 @@
   "name": "jws-server",
   "version": "1.0.0",
   "description": "Mock websocket servers using json",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshnaWiar/jws-server.git"
+  },
   "main": "dist/bin.js",
   "type": "module",
   "files": [
