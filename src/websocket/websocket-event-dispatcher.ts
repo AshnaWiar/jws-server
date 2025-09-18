@@ -27,7 +27,7 @@ export class WebsocketEventDispatcher {
       if (response == null) return;
 
       await conn.sendMessage(response.getPayload());
-      logger.debug(`${chalk.green('send')} | ${conn.id} |  ${listener.eventType} | ${chalk.yellow(request.id)} | ${response}`);
+      logger.debug(`${chalk.green('send')} | ${conn.id} | ${listener.eventType} | ${chalk.yellow(request.id)} | ${response}`);
 
     } catch (err) {
       if (err instanceof UnsupportedEventTypeException) {

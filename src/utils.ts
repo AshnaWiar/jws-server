@@ -14,9 +14,19 @@ export const tryReadJSONFileSync = <T>(filePath: string): T => {
   const file = tryReadFileSync(filePath)!;
   return JSON.parse(file) as T;
 };
-
-export const truncate = (str: string, maxSize: number = 256)  =>{
-  if (str.length <= maxSize) return str;
-  return  str.slice(0, maxSize) + '...'
+export const escapeControlUnicode = (s: string) => {
+  return s.replace(/\p{Cc}/gu, (c, hex) => {
+    switch (c) {
+      case '\b': return '\\b';
+      case '\f': return '\\f';
+      case '\n': return '\\n';
+      case '\r': return '\\r';
+      case '\t': return '\\t';
+      case '"':  return '\\"';
+      case '\\': return '\\\\';
+      case '/':  return '\\/';
+      default:
+        return '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0');
+    }
+  });
 }
-

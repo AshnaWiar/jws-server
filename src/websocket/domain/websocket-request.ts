@@ -1,7 +1,7 @@
 import {ContentType} from "../../json-spec/payload-spec.js";
-import {truncate} from "../../utils.js";
 import chalk from "chalk";
 import {randomBytes} from "node:crypto";
+import {escapeControlUnicode} from "../../utils.js";
 
 export class WebsocketRequest {
 
@@ -20,7 +20,7 @@ export class WebsocketRequest {
   toString() {
     const encoding = this.contentType === 'text/plain' ? 'utf8' : 'hex';
 
-    return `WebsocketRequest[id=${chalk.dim.yellow(this.id)}, size=${this.buffer.length}, hash=${this.hash}, encoding=${encoding}, payload=${truncate(this.payloadAsString)}]`
+    return `WebsocketRequest[id=${chalk.dim.yellow(this.id)}, size=${this.buffer.length}, hash=${this.hash}, encoding=${encoding}, payload=${chalk.dim.yellow(escapeControlUnicode(this.payloadAsString))}]`
   }
 
   [Symbol.toPrimitive](hint: 'string' | 'number' | 'default') {

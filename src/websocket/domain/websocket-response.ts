@@ -1,5 +1,6 @@
 import {PayloadSpec} from "../../json-spec/payload-spec.js";
-import {truncate} from "../../utils.js";
+import chalk from "chalk";
+import {escapeControlUnicode} from "../../utils.js";
 
 export class WebsocketResponse {
 
@@ -38,7 +39,7 @@ export class WebsocketResponse {
 
   toString(): string {
     const buffer = Buffer.from(this.payloadSpec.payload, this.payloadSpec.encoding)
-    return `WebsocketResponse[size=${buffer.length}, encoding=${this.payloadSpec.encoding} payload=${truncate(this.payloadSpec.payload)}]`;
+    return `WebsocketResponse[size=${buffer.length}, encoding=${this.payloadSpec.encoding} payload=${chalk.yellow(escapeControlUnicode(this.payloadSpec.payload))}]`;
   }
 
 }
