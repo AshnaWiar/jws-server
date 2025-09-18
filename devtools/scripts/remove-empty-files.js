@@ -66,7 +66,7 @@ const safeRmdirSyncIfEmpty = (dir, tree) => {
 const isEmptyExportJs = (file) => {
   const content = safeExecute(() => fs.readFileSync(file, 'utf8').trim());
   if (!content) return false; // Skip unreadable files
-  return /^export\s*\{\};\s*[\r\n]+\/\/# sourceMappingURL=.*$/.test(content);
+  return /^export\s*\{\}/.test(content);
 };
 
 // Recursively clean target directory and record deletions

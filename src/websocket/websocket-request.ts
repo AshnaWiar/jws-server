@@ -1,7 +1,7 @@
-import {ContentType} from "../../json-spec/payload-spec.js";
+import {ContentType} from "../json-spec/payload-spec.js";
 import chalk from "chalk";
 import {randomBytes} from "node:crypto";
-import {escapeControlUnicode} from "../../utils.js";
+import {escapeControlUnicode} from "../utils.js";
 
 export class WebsocketRequest {
 

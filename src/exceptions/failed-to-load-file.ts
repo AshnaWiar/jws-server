@@ -17,23 +17,21 @@ function getFriendlyErrorMessage(errorCode: string, filePath: string): string {
   const prettyPath = path.resolve(filePath);
 
   const messages: Record<string, string> = {
-    ENOENT: 'The file was not found at. Please verify the file exists and the path is correct.',
+    ENOENT: 'The file was not found. Please verify the file exists and the path is correct.',
     EACCES: 'Permission denied when accessing the file. Please check your access rights and try again.',
     EISDIR: 'Expected a file but found a directory. Please provide a valid file path.',
-    EMFILE: 'Too many files are open in the system. Please close some applications and try again.',
     ENAMETOOLONG: 'The file path is too long. Please shorten the path and try again.',
-    EBADF: 'An invalid file descriptor was used while accessing. This might be a system error.',
     ENOTDIR: 'A part of the path is not a directory. Please verify the path is correct.',
     EPERM: 'Operation not permitted. Please check your permissions.',
-    UNKNOWN: 'An unknown error occurred while accessing. Please try again or contact support.',
+    UNKNOWN: 'An unknown error occurred while accessing the file. Please try again or contact support.',
   };
 
-  // Fallback message if code is unrecognized
   return messages[errorCode] || `An unexpected error (${errorCode}) occurred while accessing "${prettyPath}". Please try again.`;
 }
 
 function truncatePath(filePath: string, maxLength = 40): string {
-  const prettyPath = path.resolve(filePath).replace(/\\/g, '/'); // Normalize slashes for consistency
+  // Normalize slashes for consistency
+  const prettyPath = path.resolve(filePath).replace(/\\/g, '/');
 
   if (prettyPath.length <= maxLength) return prettyPath;
 
@@ -45,16 +43,11 @@ function truncatePath(filePath: string, maxLength = 40): string {
     return prettyPath.slice(0, maxLength - 3) + '...';
   }
 
-  const start = parts.slice(0, 2).join('/'); // e.g. 'C:/Users' or '/home/user'
-  const end = parts.slice(-2).join('/');     // last two folders/files
+  // e.g. 'C:/Users' or '/home/user'
+  const start = parts.slice(0, 2).join('/');
+  // last two folders/files
+  const end = parts.slice(-2).join('/');
 
-  const truncated = `${start}/.../${end}`;
-
-  // If truncated is still too long, fallback to simple truncate at the end
-  if (truncated.length > maxLength) {
-    return '...' + prettyPath.slice(prettyPath.length - maxLength + 3);
-  }
-
-  return truncated;
+  return `${start}/.../${end}`;
 }
 

@@ -1,6 +1,6 @@
-import {WebsocketRequest} from '../domain/websocket-request.js'
+import {WebsocketRequest} from '../websocket-request.js'
 import {WebsocketEventListener} from './websocket-event-listener.js'
-import {WebsocketResponse} from "../domain/websocket-response.js";
+import {WebsocketResponse} from "../websocket-response.js";
 import {WebsocketScenarioSpec} from "../../json-spec/websocket-spec.js";
 import {PayloadSpec} from "../../json-spec/payload-spec.js";
 

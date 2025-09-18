@@ -1,6 +1,6 @@
-import {PayloadSpec} from "../../json-spec/payload-spec.js";
+import {PayloadSpec} from "../json-spec/payload-spec.js";
 import chalk from "chalk";
-import {escapeControlUnicode} from "../../utils.js";
+import {escapeControlUnicode} from "../utils.js";
 
 export class WebsocketResponse {
 

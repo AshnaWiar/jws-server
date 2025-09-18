@@ -1,6 +1,6 @@
 import {RawData} from 'ws'
 import {WebsocketEvent} from "./types/index.js";
-import {WebsocketRequest} from "./domain/websocket-request.js";
+import {WebsocketRequest} from "./websocket-request.js";
 import {UnsupportedEventTypeException} from "../exceptions/unsupported-event-type.js";
 
 export class WebsocketRequestParser {
@@ -21,8 +21,7 @@ export class WebsocketRequestParser {
   parseMessageRequest(data: RawData, isBinary: boolean): WebsocketRequest {
     const buffer = this.normalizeBuffer(data)
 
-    const encoding = isBinary ? 'hex' : 'utf8'
-    const payloadAsString = buffer.toString(encoding);
+    const payloadAsString = buffer.toString(isBinary ? 'hex' : 'utf8');
     const contentType = isBinary ? 'application/octet-stream' : 'text/plain'
 
     return new WebsocketRequest(buffer, payloadAsString, contentType)

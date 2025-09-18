@@ -2,8 +2,8 @@ import {WebsocketRequestParser} from './websocket-request-parser.js'
 import {WebsocketConnection} from "./websocket-connection.js";
 import {WebsocketEventListener} from "./listeners/websocket-event-listener.js";
 import {UnsupportedEventTypeException} from "../exceptions/unsupported-event-type.js";
-import {WebsocketRequest} from "./domain/websocket-request.js";
-import {WebsocketResponse} from "./domain/websocket-response.js";
+import {WebsocketRequest} from "./websocket-request.js";
+import {WebsocketResponse} from "./websocket-response.js";
 import logger from "../logger.js";
 import chalk from "chalk";
 
