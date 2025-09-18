@@ -10,14 +10,13 @@
   jws-server
 </h1>
 
-![badge-build]
+[![Build](https://github.com/AshnaWiar/jws-server/actions/workflows/build.yml/badge.svg)](https://github.com/AshnaWiar/jws-server/actions/workflows/build.yml)
 ![badge-npm]
 ![badge-node]
 ![badge-license]
 
 jws-server, short for **JSON WebSocket server** This project is a lightweight Node.js CLI tool for mocking WebSocket
-backends using a
-simple JSON configuration file. Inspired by [json-server][json-server], it allows developers to simulate
+server using a simple JSON configuration file. Inspired by [json-server], it allows developers to simulate
 real-time WebSocket interactions without needing to run a full backend server <br>
 
 <!-- TOC -->
@@ -34,7 +33,7 @@ real-time WebSocket interactions without needing to run a full backend server <b
 npm install -g jws-server
 ```
 
-## Getting Started
+## Getting started
 
 Create a `jws-spec.json` file to define your WebSocket message spec:
 
@@ -44,6 +43,7 @@ Create a `jws-spec.json` file to define your WebSocket message spec:
     {
       "content": {
         "payload": "ping",
+        "encoding": "utf8",
         "contentType": "text/plain"
       },
       "response": {
@@ -59,50 +59,50 @@ Create a `jws-spec.json` file to define your WebSocket message spec:
 Then run the server:
 
 ```bash
-jws-server -p 8080 jws-spec.json
+jws-server -p 3000 jws-spec.json
 ```
 
-Your WebSocket client can now connect to `ws://localhost:8080` and interact with the mock server
+Your WebSocket client can now connect to `ws://localhost:3000` and interact with the mock server
 
-### Configuration Options
+### Configuration options
 
-| Option          | Description                                         | Default     |
-|-----------------|:----------------------------------------------------|:------------|
-| `-h  --help`    | Print usage                                         | -           |
-| `-V, --version` | Print version information                           | -           |
-| `-p, --port`    | Port to run the WebSocket server on                 | `3000`      |
-| `-H, --host`    | hostname or IP address to bind  WebSocket server to | `localhost` |
+| Option          | Description               | Default     |
+|-----------------|:--------------------------|:------------|
+| `-h  --help`    | Print usage               | -           |
+| `-V, --version` | Print version             | -           |
+| `-V, --verbose` | Print verbose logging     | -           |
+| `--no-color`    | Print version information | -           |
+| `-p, --port`    | WebSocket server port     | `3000`      |
+| `-H, --host`    | WebSocket server hostname | `localhost` |
 
-## Versioning & Release Policy
+## Versioning & Release policy
 
-Jws-server uses [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`) to indicate the level of changes
+Jws-server follows [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`) to indicate the level of changes
 introduced by each release
 
 The version number is incremented based on the level of change included in the release
 
-| **Release Type**  | **Description**                                                                                                                          |
+| **Release type**  | **Description**                                                                                                                          |
 |:------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|
 | **Major release** | Introduces breaking changes or updates to support a new Node.js LTS version when the current LTS reaches end-of-life                     |
 | **Minor release** | Adds backwards‑compatible new features. Minor releases may also expand peer dependency support, but will not require dependency upgrades |
 | **Patch release** | Low‑risk, bug‑fix releasesThese releases focus on resolving defects or making small, safe improvements without altering existing APIs    |
 
-### Node.js LTS Alignment
+### Node.js LTS alignment
 
 Jws-server supports all actively maintained LTS versions of Node.js
 Once a version reaches End-of-Life (EOL), support will be dropped in the next major release
 
-**Node.js Compatibility Matrix**
+**Node.js compatibility matrix**
 
-| Version | Supported Node.js version |
-|---------|---------------------------|
-| 1.x.x   | 22.x, 23.x, 24.x          |
+| Supported Node.js version | Version |
+|---------------------------|---------|
+| 22.x, 23.x, 24.x          | 1.x.x   |
 
 ---
-Good luck, And may your coffee be strong and your stacktrace short
+May your builds be fast, your bugs be few, and your console always readable
 
 [json-server]:      https://github.com/typicode/json-server
-
-[badge-build]:      https://github.com/AshnaWiar/jws-server/actions/workflows/build.yml/badge.svg?branch=main
 
 [badge-npm]:        https://img.shields.io/npm/v/YOUR_PACKAGE_NAME?style=flat-square
 
